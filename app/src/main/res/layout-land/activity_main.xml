@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    tools:viewBindingIgnore="true"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/Green100"
+
+    android:orientation="vertical"
+
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <TextView
+        android:id="@+id/main_activity_label"
+        android:text="@string/main_activity_label"
+        style="@style/main_activity_label" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <fragment
+            android:id="@+id/fragment_input"
+            android:name="ca.tetervak.kittymessage4.ui.InputFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:layout="@layout/fragment_input"
+            tools:ignore="NestedWeights" />
+
+        <fragment
+            android:id="@+id/fragment_output"
+            android:name="ca.tetervak.kittymessage4.ui.OutputFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:layout="@layout/fragment_output" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/sheridan"
+        android:text="@string/sheridan"
+        style="@style/sheridan_label" />
+
+</LinearLayout>
