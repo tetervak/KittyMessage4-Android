@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import ca.tetervak.kittymessage4.R
 import ca.tetervak.kittymessage4.databinding.FragmentOutputBinding
 import ca.tetervak.kittymessage4.model.Envelope
@@ -12,14 +13,10 @@ import ca.tetervak.kittymessage4.model.Envelope
 
 class OutputFragment : Fragment() {
 
-    companion object{
-        const val ENVELOPE = "envelope"
-    }
-
     private var _binding: FragmentOutputBinding? = null
     private val binding get() = _binding!!
 
-    private var envelope: Envelope? = null
+    private val viewModel: EnvelopeViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,36 +25,19 @@ class OutputFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentOutputBinding.inflate(inflater, container, false)
 
-        if(savedInstanceState is Bundle){
-            envelope = savedInstanceState.getSerializable(ENVELOPE) as Envelope?
-        }
-        showEnvelope()
+        viewModel.mailbox.observe(viewLifecycleOwner){ showEnvelope(it) }
 
         return binding.root
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        if(envelope != null)
-            outState.putSerializable(ENVELOPE, envelope)
-    }
-
-    public fun receiveEnvelope(envelope: Envelope){
-        this.envelope = envelope
-        showEnvelope()
-    }
-
-    private fun showEnvelope(){
+    private fun showEnvelope(envelope: Envelope){
 
         binding.isUrgentOutput.text =
-        when{
-            (envelope?.isUrgent == true) -> getString(R.string.urgent)
-            (envelope?.isUrgent == false) -> getString(R.string.not_urgent)
-            else -> getString(R.string.undefined)
-        }
+            if(envelope.isUrgent)
+                getString(R.string.urgent)
+            else
+                getString(R.string.not_urgent)
 
-        binding.messageText.text =
-            envelope?.textMessage ?: getString(R.string.undefined)
-
+        binding.messageText.text = envelope.textMessage
     }
 }

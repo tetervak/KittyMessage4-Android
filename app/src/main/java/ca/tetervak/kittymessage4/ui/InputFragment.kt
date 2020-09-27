@@ -1,24 +1,21 @@
 package ca.tetervak.kittymessage4.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import ca.tetervak.kittymessage4.R
 import ca.tetervak.kittymessage4.databinding.FragmentInputBinding
 import ca.tetervak.kittymessage4.model.Envelope
 
 class InputFragment : Fragment() {
 
-    interface InputListener {
-        fun send(envelope: Envelope)
-    }
-    private var inputListener: InputListener? = null
-
     private var _binding: FragmentInputBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: EnvelopeViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,27 +29,18 @@ class InputFragment : Fragment() {
         return binding.root
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        inputListener = context as InputListener?;
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        inputListener = null
-    }
-
-    private fun send(){
+    private fun send() {
         // get urgent flag value
         val isUrgent: Boolean = binding.urgentCheckBox.isChecked
         // get the selected message text
-        val textMessage = when (binding.messageGroup.checkedRadioButtonId) {
-            R.id.purr_button -> getString(R.string.cat_purr)
-            R.id.mew_button -> getString(R.string.cat_mew)
-            R.id.hiss_button -> getString(R.string.cat_hiss)
-            else -> getString(R.string.undefined)
-        }
-        inputListener?.send(Envelope(isUrgent, textMessage))
+        val textMessage =
+            when (binding.messageGroup.checkedRadioButtonId) {
+                R.id.purr_button -> getString(R.string.cat_purr)
+                R.id.mew_button -> getString(R.string.cat_mew)
+                R.id.hiss_button -> getString(R.string.cat_hiss)
+                else -> getString(R.string.undefined)
+            }
+        viewModel.mailbox.value = Envelope(isUrgent, textMessage)
     }
 
 }
