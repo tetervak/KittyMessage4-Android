@@ -40,7 +40,7 @@ class InputFragment : Fragment() {
                 R.id.hiss_button -> getString(R.string.cat_hiss)
                 else -> getString(R.string.undefined)
             }
-        viewModel.mailbox.value = Envelope(isUrgent, textMessage)
+        viewModel.send(Envelope(isUrgent, textMessage))
     }
 
 }
