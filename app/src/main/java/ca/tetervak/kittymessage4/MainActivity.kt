@@ -16,10 +16,19 @@ class MainActivity : AppCompatActivity(), InputFragment.InputListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // lookup the layout fragment
-        outputFragment = supportFragmentManager
-            .findFragmentById(R.id.fragment_output) as OutputFragment?
-
+        if(savedInstanceState == null){
+            supportFragmentManager.beginTransaction()
+                .add(R.id.container_input, InputFragment())
+                .commit()
+            outputFragment = OutputFragment()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.container_output, outputFragment!!)
+                .commit()
+        }else{
+            // lookup the layout fragment
+            outputFragment = supportFragmentManager
+                .findFragmentById(R.id.container_output) as OutputFragment?
+        }
     }
 
     override fun send(envelope: Envelope) {

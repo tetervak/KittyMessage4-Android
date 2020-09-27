@@ -20,21 +20,17 @@
         android:text="@string/main_activity_label"
         style="@style/main_activity_label" />
 
-    <fragment
-        android:id="@+id/fragment_input"
-        android:name="ca.tetervak.kittymessage4.ui.InputFragment"
+    <FrameLayout
+        android:id="@+id/container_input"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        tools:layout="@layout/fragment_input" />
+        android:layout_weight="1" />
 
-    <fragment
-        android:id="@+id/fragment_output"
-        android:name="ca.tetervak.kittymessage4.ui.OutputFragment"
+    <FrameLayout
+        android:id="@+id/container_output"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        tools:layout="@layout/fragment_output" />
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/sheridan"
