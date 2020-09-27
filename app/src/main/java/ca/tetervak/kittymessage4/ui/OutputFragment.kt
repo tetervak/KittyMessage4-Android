@@ -42,7 +42,7 @@ class OutputFragment : Fragment() {
             outState.putSerializable(ENVELOPE, envelope)
     }
 
-    public fun receiveEnvelope(envelope: Envelope){
+    fun receiveEnvelope(envelope: Envelope){
         this.envelope = envelope
         showEnvelope()
     }
