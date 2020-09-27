@@ -11,7 +11,6 @@ class MainActivity : AppCompatActivity(), InputFragment.InputListener {
     // it is the layout fragment
     private var outputFragment: OutputFragment? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -20,7 +19,8 @@ class MainActivity : AppCompatActivity(), InputFragment.InputListener {
             supportFragmentManager.beginTransaction()
                 .add(R.id.container_input, InputFragment())
                 .commit()
-            outputFragment = OutputFragment()
+            outputFragment =
+                OutputFragment.newInstance(Envelope(true, getString(R.string.cat_mew)))
             supportFragmentManager.beginTransaction()
                 .add(R.id.container_output, outputFragment!!)
                 .commit()

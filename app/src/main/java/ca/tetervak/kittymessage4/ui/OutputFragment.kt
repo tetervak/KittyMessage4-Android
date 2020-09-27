@@ -14,6 +14,14 @@ class OutputFragment : Fragment() {
 
     companion object{
         const val ENVELOPE = "envelope"
+
+        fun newInstance(envelope: Envelope?): OutputFragment{
+            val fragment = OutputFragment()
+            val arguments = Bundle()
+            arguments.putSerializable(ENVELOPE, envelope)
+            fragment.arguments = arguments
+            return fragment
+        }
     }
 
     private var _binding: FragmentOutputBinding? = null
@@ -28,9 +36,13 @@ class OutputFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentOutputBinding.inflate(inflater, container, false)
 
-        if(savedInstanceState is Bundle){
-            envelope = savedInstanceState.getSerializable(ENVELOPE) as Envelope?
-        }
+        envelope =
+            if (savedInstanceState is Bundle) {
+                savedInstanceState.getSerializable(ENVELOPE)
+            } else {
+                arguments?.getSerializable(ENVELOPE)
+            } as Envelope?
+
         showEnvelope()
 
         return binding.root
@@ -42,7 +54,7 @@ class OutputFragment : Fragment() {
             outState.putSerializable(ENVELOPE, envelope)
     }
 
-    public fun receiveEnvelope(envelope: Envelope){
+    fun receiveEnvelope(envelope: Envelope){
         this.envelope = envelope
         showEnvelope()
     }
