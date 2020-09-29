@@ -7,17 +7,17 @@ import androidx.lifecycle.MutableLiveData
 import ca.tetervak.kittymessage4.R
 import ca.tetervak.kittymessage4.model.Envelope
 
-class EnvelopeViewModel(application: Application) : AndroidViewModel(application){
+class EnvelopeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val envelope = Envelope(true, application.getString(R.string.cat_mew))
 
     private val _mailbox: MutableLiveData<Envelope> =
-        MutableLiveData<Envelope>().apply {value = envelope}
+        MutableLiveData<Envelope>().apply { value = envelope }
 
     val mailbox: LiveData<Envelope>
-    get() = _mailbox
+        get() = _mailbox
 
-    fun send(envelope: Envelope){
+    fun send(envelope: Envelope) {
         _mailbox.value = envelope
     }
 }
