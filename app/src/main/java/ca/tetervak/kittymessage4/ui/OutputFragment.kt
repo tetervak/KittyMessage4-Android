@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import ca.tetervak.kittymessage4.R
 import ca.tetervak.kittymessage4.databinding.FragmentOutputBinding
 import ca.tetervak.kittymessage4.model.Envelope
@@ -33,10 +34,11 @@ class OutputFragment : Fragment() {
 
         envelope =
             if (savedInstanceState is Bundle) {
-                savedInstanceState.getSerializable(ENVELOPE)
+                savedInstanceState.getSerializable(ENVELOPE) as Envelope?
             } else {
-                arguments?.getSerializable(ENVELOPE)
-            } as Envelope?
+                val safeArgs: OutputFragmentArgs by navArgs()
+                safeArgs.envelope
+            }
 
         showEnvelope()
 
@@ -64,6 +66,7 @@ class OutputFragment : Fragment() {
     }
 
     private fun showInput(){
-        findNavController().navigate(R.id.action_output_to_input)
+        val action = OutputFragmentDirections.actionOutputToInput()
+        findNavController().navigate(action)
     }
 }

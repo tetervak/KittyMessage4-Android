@@ -41,10 +41,9 @@ class InputFragment : Fragment() {
     }
 
     private fun showOutput(envelope: Envelope) {
-        val arguments = Bundle()
-        arguments.putSerializable(OutputFragment.ENVELOPE, envelope)
-        findNavController()
-            .navigate(R.id.action_input_to_output, arguments)
+
+        val action = InputFragmentDirections.actionInputToOutput(envelope)
+        findNavController().navigate(action)
     }
 
 }

@@ -24,5 +24,9 @@
             app:destination="@id/inputFragment"
             app:popUpTo="@id/inputFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="envelope"
+            app:argType="ca.tetervak.kittymessage4.model.Envelope"
+            app:nullable="true" />
     </fragment>
 </navigation>
