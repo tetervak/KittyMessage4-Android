@@ -1,22 +1,16 @@
 package ca.tetervak.kittymessage4.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import ca.tetervak.kittymessage4.R
 import ca.tetervak.kittymessage4.databinding.FragmentInputBinding
 import ca.tetervak.kittymessage4.model.Envelope
 
 class InputFragment : Fragment() {
-
-    interface InputListener {
-        fun showOutput(envelope: Envelope)
-    }
-    private var inputListener: InputListener? = null
 
     private var _binding: FragmentInputBinding? = null
     private val binding get() = _binding!!
@@ -33,16 +27,6 @@ class InputFragment : Fragment() {
         return binding.root
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        inputListener = context as InputListener?;
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        inputListener = null
-    }
-
     private fun send(){
         // get urgent flag value
         val isUrgent: Boolean = binding.urgentCheckBox.isChecked
@@ -53,7 +37,14 @@ class InputFragment : Fragment() {
             R.id.hiss_button -> getString(R.string.cat_hiss)
             else -> getString(R.string.undefined)
         }
-        inputListener?.showOutput(Envelope(isUrgent, textMessage))
+        showOutput(Envelope(isUrgent, textMessage))
+    }
+
+    private fun showOutput(envelope: Envelope) {
+        val arguments = Bundle()
+        arguments.putSerializable(OutputFragment.ENVELOPE, envelope)
+        findNavController()
+            .navigate(R.id.action_input_to_output, arguments)
     }
 
 }
