@@ -13,7 +13,7 @@ import ca.tetervak.kittymessage4.model.Envelope
 class InputFragment : Fragment() {
 
     interface InputListener {
-        fun send(envelope: Envelope)
+        fun showOutput(envelope: Envelope)
     }
     private var inputListener: InputListener? = null
 
@@ -52,7 +52,7 @@ class InputFragment : Fragment() {
             R.id.hiss_button -> getString(R.string.cat_hiss)
             else -> getString(R.string.undefined)
         }
-        inputListener?.send(Envelope(isUrgent, textMessage))
+        inputListener?.showOutput(Envelope(isUrgent, textMessage))
     }
 
 }

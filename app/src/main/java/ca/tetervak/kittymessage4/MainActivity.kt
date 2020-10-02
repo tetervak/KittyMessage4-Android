@@ -6,10 +6,8 @@ import ca.tetervak.kittymessage4.model.Envelope
 import ca.tetervak.kittymessage4.ui.InputFragment
 import ca.tetervak.kittymessage4.ui.OutputFragment
 
-class MainActivity : AppCompatActivity(), InputFragment.InputListener {
-
-    // it is the layout fragment
-    private var outputFragment: OutputFragment? = null
+class MainActivity : AppCompatActivity(),
+    InputFragment.InputListener, OutputFragment.OutputListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,21 +15,20 @@ class MainActivity : AppCompatActivity(), InputFragment.InputListener {
 
         if(savedInstanceState == null){
             supportFragmentManager.beginTransaction()
-                .add(R.id.container_input, InputFragment())
+                .add(R.id.fragment_container, InputFragment())
                 .commit()
-            outputFragment =
-                OutputFragment.newInstance(Envelope(true, getString(R.string.cat_mew)))
-            supportFragmentManager.beginTransaction()
-                .add(R.id.container_output, outputFragment!!)
-                .commit()
-        }else{
-            // lookup the layout fragment
-            outputFragment = supportFragmentManager
-                .findFragmentById(R.id.container_output) as OutputFragment?
         }
     }
 
-    override fun send(envelope: Envelope) {
-        outputFragment?.receiveEnvelope(envelope)
+    override fun showOutput(envelope: Envelope) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, OutputFragment.newInstance(envelope))
+            .commit()
+    }
+
+    override fun showInput(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, InputFragment())
+            .commit()
     }
 }

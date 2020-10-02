@@ -21,13 +21,7 @@
         style="@style/main_activity_label" />
 
     <FrameLayout
-        android:id="@+id/container_input"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <FrameLayout
-        android:id="@+id/container_output"
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

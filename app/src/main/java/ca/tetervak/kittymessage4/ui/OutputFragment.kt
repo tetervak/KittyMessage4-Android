@@ -1,5 +1,6 @@
 package ca.tetervak.kittymessage4.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,11 @@ import ca.tetervak.kittymessage4.model.Envelope
 
 
 class OutputFragment : Fragment() {
+
+    interface OutputListener{
+        fun showInput()
+    }
+    private var outputListener: OutputFragment.OutputListener? = null
 
     companion object{
         const val ENVELOPE = "envelope"
@@ -35,6 +41,8 @@ class OutputFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentOutputBinding.inflate(inflater, container, false)
+
+        binding.backButton.setOnClickListener { outputListener?.showInput() }
 
         envelope =
             if (savedInstanceState is Bundle) {
@@ -71,5 +79,15 @@ class OutputFragment : Fragment() {
         binding.messageText.text =
             envelope?.textMessage ?: getString(R.string.undefined)
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        outputListener = context as OutputFragment.OutputListener?
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        outputListener = null
     }
 }
