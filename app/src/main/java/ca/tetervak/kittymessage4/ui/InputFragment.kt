@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import ca.tetervak.kittymessage4.R
 import ca.tetervak.kittymessage4.databinding.FragmentInputBinding
 import ca.tetervak.kittymessage4.model.Envelope
