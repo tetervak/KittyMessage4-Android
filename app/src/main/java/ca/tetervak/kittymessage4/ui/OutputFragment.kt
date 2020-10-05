@@ -18,8 +18,7 @@ class OutputFragment : Fragment() {
         const val ENVELOPE = "envelope"
     }
 
-    private var _binding: FragmentOutputBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentOutputBinding
 
     private lateinit var envelope: Envelope
 
@@ -28,7 +27,7 @@ class OutputFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentOutputBinding.inflate(inflater, container, false)
+        binding = FragmentOutputBinding.inflate(inflater, container, false)
 
         binding.backButton.setOnClickListener { showInput() }
 
