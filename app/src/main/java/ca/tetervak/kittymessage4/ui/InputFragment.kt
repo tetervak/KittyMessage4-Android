@@ -17,15 +17,14 @@ class InputFragment : Fragment() {
     }
     private var inputListener: InputListener? = null
 
-    private var _binding: FragmentInputBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentInputBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentInputBinding.inflate(inflater, container, false)
+        binding = FragmentInputBinding.inflate(inflater, container, false)
 
         binding.sendButton.setOnClickListener { send() }
 
