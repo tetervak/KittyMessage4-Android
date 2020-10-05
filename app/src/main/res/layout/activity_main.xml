@@ -27,7 +27,9 @@
         android:layout_weight="1"
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
+        app:navGraph="@navigation/nav_graph"
+        tools:layout="@layout/fragment_input"
+        tools:ignore="FragmentTagUsage"/>
 
     <TextView
         android:id="@+id/sheridan"
