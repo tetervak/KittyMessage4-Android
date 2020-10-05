@@ -12,8 +12,7 @@ import ca.tetervak.kittymessage4.model.Envelope
 
 class InputFragment : Fragment() {
 
-    private var _binding: FragmentInputBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentInputBinding
 
     private val viewModel: EnvelopeViewModel by activityViewModels()
 
@@ -22,7 +21,7 @@ class InputFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentInputBinding.inflate(inflater, container, false)
+        binding = FragmentInputBinding.inflate(inflater, container, false)
 
         binding.sendButton.setOnClickListener { send() }
 
