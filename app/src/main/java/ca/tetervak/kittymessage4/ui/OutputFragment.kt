@@ -21,7 +21,7 @@ class OutputFragment : Fragment() {
     private var _binding: FragmentOutputBinding? = null
     private val binding get() = _binding!!
 
-    private var envelope: Envelope? = null
+    private lateinit var envelope: Envelope
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,35 +34,21 @@ class OutputFragment : Fragment() {
 
         envelope =
             if (savedInstanceState is Bundle) {
-                savedInstanceState.getSerializable(ENVELOPE) as Envelope?
+                savedInstanceState.getSerializable(ENVELOPE) as Envelope
             } else {
                 val safeArgs: OutputFragmentArgs by navArgs()
                 safeArgs.envelope
             }
 
-        showEnvelope()
+        binding.envelope = envelope
 
         return binding.root
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if(envelope != null)
+
             outState.putSerializable(ENVELOPE, envelope)
-    }
-
-    private fun showEnvelope(){
-
-        binding.isUrgentOutput.text =
-        when{
-            (envelope?.isUrgent == true) -> getString(R.string.urgent)
-            (envelope?.isUrgent == false) -> getString(R.string.not_urgent)
-            else -> getString(R.string.undefined)
-        }
-
-        binding.messageText.text =
-            envelope?.textMessage ?: getString(R.string.undefined)
-
     }
 
     private fun showInput(){
