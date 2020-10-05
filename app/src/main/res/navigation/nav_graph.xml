@@ -27,6 +27,6 @@
         <argument
             android:name="envelope"
             app:argType="ca.tetervak.kittymessage4.model.Envelope"
-            app:nullable="true" />
+            app:nullable="false" />
     </fragment>
 </navigation>

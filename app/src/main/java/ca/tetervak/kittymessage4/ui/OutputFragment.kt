@@ -14,14 +14,14 @@ import ca.tetervak.kittymessage4.model.Envelope
 
 class OutputFragment : Fragment() {
 
-    companion object{
+    companion object {
         const val ENVELOPE = "envelope"
     }
 
     private var _binding: FragmentOutputBinding? = null
     private val binding get() = _binding!!
 
-    private var envelope: Envelope? = null
+    private lateinit var envelope: Envelope
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +34,7 @@ class OutputFragment : Fragment() {
 
         envelope =
             if (savedInstanceState is Bundle) {
-                savedInstanceState.getSerializable(ENVELOPE) as Envelope?
+                savedInstanceState.getSerializable(ENVELOPE) as Envelope
             } else {
                 val safeArgs: OutputFragmentArgs by navArgs()
                 safeArgs.envelope
@@ -47,25 +47,21 @@ class OutputFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if(envelope != null)
-            outState.putSerializable(ENVELOPE, envelope)
+        outState.putSerializable(ENVELOPE, envelope)
     }
 
-    private fun showEnvelope(){
+    private fun showEnvelope() {
 
         binding.isUrgentOutput.text =
-        when{
-            (envelope?.isUrgent == true) -> getString(R.string.urgent)
-            (envelope?.isUrgent == false) -> getString(R.string.not_urgent)
-            else -> getString(R.string.undefined)
-        }
+            if (envelope.isUrgent)
+                getString(R.string.urgent)
+            else
+                getString(R.string.not_urgent)
 
-        binding.messageText.text =
-            envelope?.textMessage ?: getString(R.string.undefined)
-
+        binding.messageText.text = envelope.textMessage
     }
 
-    private fun showInput(){
+    private fun showInput() {
         val action = OutputFragmentDirections.actionOutputToInput()
         findNavController().navigate(action)
     }
