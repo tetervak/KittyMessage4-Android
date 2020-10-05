@@ -13,8 +13,7 @@ import ca.tetervak.kittymessage4.model.Envelope
 
 class OutputFragment : Fragment() {
 
-    private var _binding: FragmentOutputBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentOutputBinding
 
     private val viewModel: EnvelopeViewModel by activityViewModels()
 
@@ -23,7 +22,7 @@ class OutputFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentOutputBinding.inflate(inflater, container, false)
+        binding = FragmentOutputBinding.inflate(inflater, container, false)
 
         viewModel.mailbox.observe(viewLifecycleOwner){ showEnvelope(it) }
 
